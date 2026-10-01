@@ -11,13 +11,20 @@ class Fecha(val dia: Int, val mes: Int, val anio: Int) {
   // Precondiciones del constructor: el mes va de 1 a 12 y el día existe en
   // ese mes de ese año. Una fecha que no cumple lanza
   // IllegalArgumentException.
+  require(mes>=1 && mes<=12 && dia>=1 && dia<=diasDelMes(mes),"fecha invalida")
   // Completar
-
   // Si el año es bisiesto en el calendario gregoriano.
-  private def esBisiesto: Boolean = false // Completar
+  private def esBisiesto: Boolean = anio%4==0 // Completar
 
   // Cuántos días tiene el mes m de este año.
-  private def diasDelMes(m: Int): Int = 0 // Completar
+  private def diasDelMes(m: Int): Int = {
+    m match{
+      case 1 | 3 | 5 | 7 | 8 | 10 | 12 => 31
+      case 4|6|9|11 => 30
+      case 2  if esBisiesto => 29
+      case 2 => 28
+    }
+  } // Completar
 
   // Qué número de día es esta fecha dentro de su año: el 1 de enero es 1.
   def diaDelAnio: Int = 0 // Completar
